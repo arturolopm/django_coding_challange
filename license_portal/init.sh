@@ -10,6 +10,7 @@ apt-get install -y mysql-client
 python manage.py collectstatic --noinput
 
 # Apply migrations
+python manage.py migrate
 python manage.py makemigrations
 python manage.py migrate
 
