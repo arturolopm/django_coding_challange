@@ -26,7 +26,7 @@ SECRET_KEY = '^k53s4xvwr)j@oswog!f)velbs5_%lfd-gmca9#uku@kmjmh=w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -77,14 +77,18 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('POSTGRES_HOST', 'licenses'),
-        'USER': os.getenv('POSTGRES_USER', 'licenses'),
-        'PASSWORD': os.getenv('POSTGRES_USER', 'licenses'),
-        'HOST': os.getenv('POSTGRES_HOST', 'postgres'),
-        'PORT': int(os.getenv('POSTGRES_PORT', 5432)),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mariadb',
+        'USER': 'mariadb',
+        'PASSWORD': 'mariadb',
+        'HOST': 'mariadb',
+        'PORT': '',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES', innodb_strict_mode=1",
+        },
     }
 }
+
 
 
 # Password validation

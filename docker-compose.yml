@@ -1,15 +1,42 @@
+version: '3'
+
 services:
-  license-server:
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=mariadb
+      - MYSQL_DATABASE=mariadb
+      - MYSQL_USER=mariadb
+      - MYSQL_PASSWORD=mariadb
+    ports:
+      - 3306:3306
+    networks:
+      - myapp-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "-umariadb", "-pmariadb", "ping", "-h", "localhost"] # Check if MariaDB is responding
+      interval: 10s
+      timeout: 5s
+      retries: 3
+   
+
+  web:
     build:
       context: ./license_portal
-    links:
-      - postgres
-    volumes:
-      - ./license_portal:/app
+      dockerfile: Dockerfile  
+    command: ./init.sh
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mariadb
 
-  postgres:
-    image: 'postgres:13'
-    environment:
-     POSTGRES_USER: 'licenses'
-     POSTGRES_PASSWORD: 'licenses'
-     POSTGRES_DB: 'licenses'
+    networks:
+      - myapp-network
+    
+
+networks:
+  myapp-network:
+    driver: bridge
+
+volumes:
+  mariadb_data:
