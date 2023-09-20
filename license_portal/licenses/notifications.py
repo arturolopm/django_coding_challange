@@ -4,6 +4,8 @@ from django.core.mail import send_mail
 from django.template import Template
 from django.template.loader import get_template
 
+from .utils import send_email_notification
+from django.template.loader import render_to_string
 
 DEFAULT_FROM_EMAIL = 'noreply@email.com'
 
@@ -11,9 +13,9 @@ DEFAULT_FROM_EMAIL = 'noreply@email.com'
 class EmailNotification:
     """ A convenience class to send email notifications
     """
-    subject = None  # type: str
+    subject = "License Expiration Notification"  # type: str
     from_email = DEFAULT_FROM_EMAIL  # type: str
-    template_path = None  # type: str
+    template_path = "email_template.html"  # type: str
 
     @classmethod
     def load_template(cls) -> Template:

@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 import django
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -135,3 +136,11 @@ DEFAULT_AUTO_FIELD="django.db.models.BigAutoField"
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
+EMAIL_USE_TLS = False
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 8025  # You can choose any available port
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+DEFAULT_FROM_EMAIL = 'your-email@example.com'  # Update with your email
