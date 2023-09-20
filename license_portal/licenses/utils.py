@@ -16,9 +16,10 @@ def get_licenses_to_notify():
     """
     Retrieve licenses that need to be notified based on expiration conditions.
     """
-    current_date = timezone.now()
+    current_date = timezone.datetime.now()
     
     # Retrieve licenses that expire in exactly 4 months
+    
     licenses_4_months = License.objects.filter(
         expiration_datetime=current_date + timedelta(days=4*30)
     )
