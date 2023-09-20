@@ -5,6 +5,7 @@ from ..notifications import EmailNotification
 from ..utils import get_licenses_to_notify
 
 class EmailNotificationAPIView(APIView):
+    authentication_classes = []
     def get(self, request):
         licenses_to_notify = get_licenses_to_notify()  # Implement this function to get licenses to notify
         print(licenses_to_notify)

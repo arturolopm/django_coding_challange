@@ -55,3 +55,7 @@ class Client(models.Model):
     poc_contact_email = models.EmailField()
 
     admin_poc = models.ForeignKey(User, limit_choices_to={'is_staff': True}, on_delete=models.CASCADE)
+
+class LogEmail(models.Model):
+    sent_at = models.DateTimeField()
+    license_id = models.IntegerField()
