@@ -20,15 +20,15 @@ class ChoiceEnum(enum.Enum):
 
 class Package(ChoiceEnum):
     """A Package accessible to a client with a valid license"""
-    javascript_sdk = 0
-    ios_sdk = 1
-    android_sdk = 2
+    JAVASCRIPT_SDK = 'javascript_sdk'
+    IOS_SDK = 'ios_sdk'
+    ANDROID_SDK = 'android_sdk'
 
 
 class LicenseType(ChoiceEnum):
     """A license type"""
-    production = 0
-    evaluation = 1
+    PRODUCTION = 'production'
+    EVALUATION = 'evaluation'
 
 
 def get_default_license_expiration() -> datetime:
@@ -40,8 +40,8 @@ class License(models.Model):
     """ Data model for a client license allowing access to a package
     """
     client = models.ForeignKey('Client', on_delete=models.CASCADE)
-    package = models.PositiveSmallIntegerField(choices=Package.get_choices())
-    license_type = models.PositiveSmallIntegerField(choices=LicenseType.get_choices())
+    package = models.CharField(max_length=20,choices=Package.get_choices())
+    license_type = models.CharField(max_length=20,choices=LicenseType.get_choices())
 
     created_datetime = models.DateTimeField(auto_now=True)
     expiration_datetime = models.DateTimeField(default=get_default_license_expiration)
